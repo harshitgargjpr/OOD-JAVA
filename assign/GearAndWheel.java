@@ -38,8 +38,12 @@ class Gear{
         return chainring/(double)cog;
     }
 
+    private double diameter(){
+        return wheel.diameter();
+    }
+
     public double gearInches(){
-        return ratio() * wheel.diameter();
+        return ratio() * diameter();
     }
 }
 
