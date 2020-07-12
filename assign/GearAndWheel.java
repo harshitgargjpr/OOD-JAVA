@@ -1,30 +1,37 @@
 package assign;
 
-class Gear{
-    private class Wheel{
-        private double rim, tire;
-        private Wheel(double rim, double tire){
-            this.rim = rim;
-            this.tire = tire;
-        }
-
-        private double diameter(){
-            return rim + 2*tire;
-        }
+class Wheel{
+    private double rim, tire;
+    public Wheel(double rim, double tire){
+        this.rim = rim;
+        this.tire = tire;
     }
 
+    public double circumference(){
+        return Math.PI * diameter();
+    }
+
+    public double diameter(){
+        return rim + 2*tire;
+    }
+}
+
+class Gear{
     private int chainring, cog;
     private Wheel wheel;
 
     public Gear(int chainring, int cog){
-        // assuming 50 and 2 are default values for rim and tire
-        this(chainring, cog, 50, 2);    
+        this(chainring, cog, null);    
     }
 
     public Gear(int chainring, int cog, double rim, double tire){
+        this(chainring, cog, new Wheel(rim,tire));
+    }
+
+    public Gear(int chainring, int cog, Wheel wheel){
         this.chainring = chainring;
         this.cog = cog;
-        wheel = new Wheel(rim, tire);
+        this.wheel = wheel;
     }
 
     public double ratio(){
@@ -46,5 +53,11 @@ public class GearAndWheel{
 
         Gear gear3 = new Gear(52, 11 ,26, 1.5);
         System.out.println(gear3.gearInches());
+
+        Wheel wheel = new Wheel(26, 1.5);
+        System.out.println(wheel.circumference());
+        Gear gear4 = new Gear(52, 11, wheel);
+
+        System.out.println(gear4.gearInches());
     }
 }
